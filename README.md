@@ -27,6 +27,14 @@ sudo rm cuda.list
 10. sudo apt-get install cuda-10-0
 
 記得修改zshrc or bashrc檔案裡面的cuda路徑
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-10.0/lib64
+export CUDA_INSTALL_DIR=/usr/local/cuda-10.0
+export PATH=$PATH:/usr/local/cuda-10.0/bin
+export CUDA_HOME=$CUDA_HOME:/usr/local/cuda-10.0
+export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
 
 ## Install cudnn
 Download from : https://developer.nvidia.com/rdp/cudnn-download
