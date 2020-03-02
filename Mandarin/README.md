@@ -1,5 +1,7 @@
 [![](https://img.shields.io/badge/Lauguage-Mandarin-blue)](./) [![](https://img.shields.io/badge/CUDA%20version-v10.0-lightgrey)](https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) [![](https://img.shields.io/badge/cuDNN-v7.6.5-red)](https://developer.nvidia.com/rdp/cudnn-download) [![](https://img.shields.io/badge/TensorRT%20version-v7.0.0.11-orange)](https://developer.nvidia.com/nvidia-tensorrt-7x-download)
 
+[English](../README.md) | [中文](./)
+
 # Table of Contents
 - 安裝 / 移除 CUDA and cudnn
   - 移除
