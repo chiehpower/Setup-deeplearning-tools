@@ -1,8 +1,19 @@
-[![](https://img.shields.io/badge/Lauguage-Mandarin-blue)](./) [![](https://img.shields.io/badge/CUDA%20version-v10.0-lightgrey)](https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) [![](https://img.shields.io/badge/cuDNN-v7.6.5-red)](https://developer.nvidia.com/rdp/cudnn-download)
+[![](https://img.shields.io/badge/Lauguage-Mandarin-blue)](./) [![](https://img.shields.io/badge/CUDA%20version-v10.0-lightgrey)](https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) [![](https://img.shields.io/badge/cuDNN-v7.6.5-red)](https://developer.nvidia.com/rdp/cudnn-download) [![](https://img.shields.io/badge/TensorRT%20version-v7.0.0.11-orange)](https://developer.nvidia.com/nvidia-tensorrt-7x-download)
 
-# 安裝 / 移除 CUDA和cudnn部份
+# Table of Contents
+- 安裝 / 移除 CUDA and cudnn
+  - 移除
+  - 安裝 CUDA
+  - 安裝 cudnn
+  - 檢查
+- 安裝 TensorRT
+  
+---
+# 安裝 / 移除 CUDA 和 cudnn
 
 ## 移除
+
+(我原本的版本是10.1，所以在這邊我是移除10.1的資料夾)
 ```
 sudo apt-get remove cuda-10.1 
 sudo apt autoremove
@@ -58,7 +69,7 @@ sudo ln -sf libcudnn.so.7 libcudnn.so
 sudo ldconfig
 ```
 
-# 檢查
+## 檢查
 
 ```
 nvidia-smi
@@ -67,3 +78,84 @@ nvidia-smi
 ```
 nvcc -V
 ```
+
+---
+# 安裝 TensorRT
+
+目前最新版本是第七版，如果要下載TensorRT7可以從[這邊](https://developer.nvidia.com/nvidia-tensorrt-7x-download). (需要先登入帳號)
+
+我的系統是`Ubunty 18.04`, `cuDNN version 7.6.5` and `CUDA version 10.0`. 我建議是安裝tar包。
+
+我是選擇tar包，如果你的系統環境跟我一樣，可以直接從這裡下載
+[TensorRT 7.0.0.11 for Ubuntu 18.04 and CUDA 10.0 tar package](https://developer.nvidia.com/compute/machine-learning/tensorrt/secure/7.0/7.0.0.11/tars/TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.0.cudnn7.6.tar.gz)
+
+解壓縮
+```
+tar -zxvf TensorRT-7.0.0.11.Ubuntu-18.04.x86_64-gnu.cuda-10.0.cudnn7.6.tar.gz
+```
+
+安裝步驟請看[這邊](https://docs.nvidia.com/deeplearning/sdk/tensorrt-install-guide/index.html). 
+根據我的case, 我是按照[這部份](https://docs.nvidia.com/deeplearning/sdk/tensorrt-install-guide/index.html#installing-tar).
+
+第一，先進去TensorRT資料夾
+```
+cd TensorRT7
+```
+
+## 安裝 Python TensorRT wheel檔
+
+```
+cd ./python
+sudo pip3 install tensorrt-*-cp3x-none-linux_x86_64.whl
+cd ..
+```
+
+## 安裝 Python UFF wheel file. (如果你要用TensorRT跑Tensorflow)
+
+```
+cd ./uff
+sudo pip3 install uff-0.6.5-py2.py3-none-any.whl
+which convert-to-uff
+cd ..
+```
+
+## 安裝 Python `graphsurgeon` wheel檔
+
+```
+cd ./graphsurgeon
+sudo pip3 install graphsurgeon-0.4.1-py2.py3-none-any.whl
+cd ..
+```
+
+## Export TensorRT 的library
+
+1. 打開你的 .bashrc / .zshrc
+	```
+	vim ~/.bashrc
+	```
+	or 
+	```
+	vim ~/.zshrc
+	```
+2. 把你的路徑填進去
+	```
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/(your location)/TensorRT7/lib
+	export TRT_RELEASE=/home/(your location)/TensorRT7_cuda100
+	```
+3. Source 
+	```
+	source ~/.bashrc
+	```
+	or 
+	```
+	source ~/.zshrc
+	```
+
+## 檢查
+
+在終端器上直接用python3來做初步測試
+```
+import tensorrt
+```
+應該不會回報任何錯誤。
+再來，你也可以從TensorRT包裡的範例做測試C++版`~/TensorRT7/samples/` 和 python版本的`~/TensorRT7/samples/python`
