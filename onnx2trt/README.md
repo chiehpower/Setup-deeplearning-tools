@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/ONNX%20version-v1.6.0-blue)](./) [![](https://img.shields.io/badge/CUDA%20version-v10.0-lightgrey)](https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) [![](https://img.shields.io/badge/cuDNN-v7.6.3-red)](https://developer.nvidia.com/rdp/cudnn-download) [![](https://img.shields.io/badge/TensorRT%20version-v6.0-orange)](https://developer.nvidia.com/nvidia-tensorrt-6x-download)
+[![](https://img.shields.io/badge/ONNX-v1.6.0-blue)](./) [![](https://img.shields.io/badge/CUDA-v10.0-lightgrey)](https://developer.nvidia.com/cuda-10.0-download-archive?target_os=Linux&target_arch=x86_64&target_distro=Ubuntu&target_version=1804&target_type=deblocal) [![](https://img.shields.io/badge/cuDNN-v7.6.3-red)](https://developer.nvidia.com/rdp/cudnn-download) [![](https://img.shields.io/badge/TensorRT-v6.0-orange)](https://developer.nvidia.com/nvidia-tensorrt-6x-download)
 
 # Onnx2trt Installation 
 >These steps were successful installed on Jetson AGX device.
