@@ -17,7 +17,7 @@ Note: please don't install both versions at the same time.
 This onnxruntime steps are installed on AGX and I followed by [this instructions](https://github.com/microsoft/onnxruntime/issues/2684#issuecomment-568548387).
 
 ## Commands
-1. git clone --recursive https://github.com/Microsoft && cd onnxruntime
+1. git clone --recursive https://github.com/microsoft/onnxruntime && cd onnxruntime
 2. git checkout `b783805`
 3. `export CUDACXX="/usr/local/cuda/bin/nvcc"` 
 4. 
