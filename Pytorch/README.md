@@ -11,12 +11,13 @@ I am going to install `PyTorch v1.3.0`
 1. 
 ```
 wget https://nvidia.box.com/shared/static/phqe92v26cbhqjohwtvxorrwnmrnfx1o.whl -O torch-1.3.0-cp36-cp36m-linux_aarch64.whl
-pip3 install numpy torch-1.3.0-cp36-cp36m-linux_aarch64.whl
 ```
+
 2. Install this whl file
 ```
 sudo -H python3 -m pip install numpy torch-1.3.0-cp36-cp36m-linux_aarch64.whl
 ```
+
 3. Install torchvision; so git clone it for my vision. 
 They provided us a list.
 ```
@@ -32,12 +33,16 @@ sudo apt-get install libjpeg-dev zlib1g-dev
 git clone --branch v0.4.2 https://github.com/pytorch/vision torchvision
 cd torchvision
 ```
-4. 
+
+4. Install it.
 ```
 sudo -H python3 setup.py install
 ```
+
 5. Install pillow
+```
 sudo -H python3 -m pip install 'pillow<7'
+```
 
 ---
 # Check
