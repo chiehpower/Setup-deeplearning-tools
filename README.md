@@ -9,6 +9,10 @@
   - Install cudnn
   - Check it
 - Install TensorRT
+- onnx2trt
+- onnxruntime
+- onnx-simplifier
+- Pytorch
 
 ---
 # Install / Remove CUDA and cudnn
@@ -168,3 +172,20 @@ import tensorrt
 It should not happen any wrong.
 
 You can also check by those samples on `~/TensorRT7/samples/` which are C++ samples and `~/TensorRT7/samples/python` which are python samples.
+
+---
+# Install onnx2trt
+
+[Check here](./onnx2trt/README.md)
+
+# Install onnxruntime
+
+[Check here](./onnxruntime/README.md)
+
+# Install onnx-simplifier
+
+[Check here](./onnx-simplifier/README.md)
+
+# Install Pytorch
+
+[Check here](./Pytorch/README.md)
