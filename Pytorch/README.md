@@ -1,12 +1,13 @@
-# Install Pytorch on AGX
+# <center> Install Pytorch </center>
+
+# On AGX
 
 **Source: https://forums.developer.nvidia.com/t/pytorch-for-jetson-nano-version-1-4-0-now-available/72048**
 I followed this page to install.
 My Jetpack version is 4.3
 I am going to install `PyTorch v1.3.0`
 
----
-# Commands
+### Commands
 
 1. 
 ```
@@ -44,8 +45,7 @@ sudo -H python3 setup.py install
 sudo -H python3 -m pip install 'pillow<7'
 ```
 
----
-# Check
+### Check
 
 ```
 >>> import torch
@@ -61,3 +61,55 @@ sudo -H python3 -m pip install 'pillow<7'
 >>> import torchvision
 >>> print(torchvision.__version__)
 ```
+
+---
+# On Desktop
+
+We can directly follow the commands from Pytorch official website.
+> https://pytorch.org/get-started/locally/#mac-installation
+
+### Installation
+Environmnet setting: 
+> OS: Ubuntu 18.04
+> CDUA: 10.0
+> cuDNN: 7.6.
+Version table: 
+
+| torch | torchvision |
+|--- | --- |
+| 1.5.0 | 0.6.0 |
+| 1.4.0 | 0.5.0 |
+| 1.3.1 | 0.4.2 |
+
+Install `torch` and  `torchvision`:
+```
+python3 -m pip install torch==1.4.0 torchvision==0.5.0 -f https://download.pytorch.org/whl/torch_stable.html  
+```
+
+*Note : you can also decide the specific cuda version and choose to install the cpu or gpu version. Please follow the instructions of official website.*
+
+### Uninstall
+```
+python3 -m pip uninstall torch
+python3 -m pip uninstall torchvision
+```
+
+### Check 
+
+Use `python3` to check.
+The code from [here](https://pytorch.org/get-started/locally/#mac-verification).
+
+```
+from __future__ import print_function
+import torch
+x = torch.rand(5, 3)
+print(x)
+```
+
+Check the gpu whether it works or not.
+```
+import torch
+torch.cuda.is_available()
+```
+
+Should be return `True`
