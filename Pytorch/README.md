@@ -68,6 +68,8 @@ sudo -H python3 -m pip install 'pillow<7'
 We can directly follow the commands from Pytorch official website.
 > https://pytorch.org/get-started/locally/#mac-installation
 
+![torch](../assets/torch.png)
+
 ### Installation
 Environmnet setting: 
 > OS: Ubuntu 18.04
@@ -88,10 +90,17 @@ python3 -m pip install torch==1.4.0 torchvision==0.5.0 -f https://download.pytor
 
 *Note : you can also decide the specific cuda version and choose to install the cpu or gpu version. Please follow the instructions of official website.*
 
-### Uninstall
+For example, my CUDA version is `10.0`.
+
+Command:
 ```
-python3 -m pip uninstall torch
-python3 -m pip uninstall torchvision
+pip3 install torch==1.4.0+cu100 torchvision==0.5.0+cu100 -f https://download.pytorch.org/whl/torch_stable.html
+```
+
+### Uninstall
+
+```
+sudo -H python3 -m pip uninstall torch torchvision 
 ```
 
 ### Check 
