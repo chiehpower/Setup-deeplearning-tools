@@ -2,6 +2,17 @@
 
 [English](./) | [中文](./Mandarin/README.md)
 
+---
+# The list 
+
+- Install onnx2trt: [Check here](./onnx2trt/README.md)
+- Install onnxruntime: [Check here](./onnxruntime/README.md)
+- Install onnx-simplifier: [Check here](./onnx-simplifier/README.md)
+- Install Pytorch: [Check here](./Pytorch/README.md)
+- Install NVIDIA-docker: [Check here](./NVIDIA-docker/README.md)
+- Set up AGX: [Check here](./AGX/README.md)
+
+---
 # Table of Contents
 - Install / Remove CUDA and cudnn
   - Remove
@@ -173,19 +184,3 @@ It should not happen any wrong.
 
 You can also check by those samples on `~/TensorRT7/samples/` which are C++ samples and `~/TensorRT7/samples/python` which are python samples.
 
----
-# Install onnx2trt
-
-[Check here](./onnx2trt/README.md)
-
-# Install onnxruntime
-
-[Check here](./onnxruntime/README.md)
-
-# Install onnx-simplifier
-
-[Check here](./onnx-simplifier/README.md)
-
-# Install Pytorch
-
-[Check here](./Pytorch/README.md)

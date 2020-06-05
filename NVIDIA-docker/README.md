@@ -2,8 +2,7 @@ Install [NVIDIA-docker](https://github.com/NVIDIA/nvidia-docker)
 
 # Install on PC
 
-[Prerequisites](https://nvidia.github.io/nvidia-docker/)
-
+- [Prerequisites](https://nvidia.github.io/nvidia-docker/)
 - Followed from [here](https://github.com/NVIDIA/nvidia-docker/wiki/Installation-(version-2.0))
 
 1. Removing nvidia-docker 1.0 
@@ -67,5 +66,7 @@ Thu May 21 07:49:44 2020
 
 
 **My Environment Info**
-> Ubuntu OS 18.04
-> Docker Version : 19.03.6
+```Python
+Ubuntu OS : 18.04
+Docker Version : 19.03.6
+```
