@@ -126,6 +126,8 @@ sudo -H pip3 install jetson-stats
 sudo apt-get update
 sudo apt-get install -y build-essential libatlas-base-dev gfortran libfreetype6-dev python3-setuptools
 sudo apt-get install -y protobuf-compiler libprotobuf-dev openssl libssl-dev libcurl4-openssl-dev
+
+pip3 install matplotlib
 ```
 
 #### Upgrade Cmake version
@@ -159,6 +161,15 @@ python3 setup.py install --user
 ```
 sudo apt autoremove
 ```
+
+#### Install onnx
+
+```
+sudo apt-get install python3-pip libprotoc-dev protobuf-compiler
+pip3 install onnx --verbose
+```
+
+Reference: From [here](https://forums.developer.nvidia.com/t/installing-onnx-library-on-my-jetson-xavier/115229/2?u=chieh)
 
 ---
 # Install PyTorch
@@ -197,15 +208,18 @@ It installed the version 6.2.2 of pillow in the end.
 
 # Install Onnxruntime
 
-I followed [here](https://github.com/chiehpower/Installation/tree/master/onnxruntime#install-on-agx).
+I followed from [here](https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#jetson-tx1tx2nano-arm64-builds).
 
 ```
-git clone --recursive https://github.com/microsoft/onnxruntime && cd onnxruntime
-git checkout b783805
+git clone --single-branch --recursive --branch v1.1.2 https://github.com/Microsoft/onnxruntime
+```
+
+**Important:**
+```
 export CUDACXX="/usr/local/cuda/bin/nvcc"
 ```
 
-Modify some places.
+To modify some places.
 ```
 Modify  tools/ci_build/build.py
     - "-Donnxruntime_DEV_MODE=" + ("OFF" if args.android else "ON"),
@@ -213,15 +227,192 @@ Modify  tools/ci_build/build.py
 Modify cmake/CMakeLists.txt
     -  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode=arch=compute_50,code=sm_50") # M series
     +  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode=arch=compute_53,code=sm_53") # Jetson support
+    -  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode=arch=compute_70,code=sm_70")
+    +  set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -gencode=arch=compute_72,code=sm_72") # AGX
 ```
 
-Build it
+If you only do it and build it, you might get this known error below.
+
 ```
-./build.sh --config Release --update --build --build_wheel --use_tensorrt --cuda_home /usr/local/cuda --cudnn_home /usr/lib/aarch64-linux-gnu --tensorrt_home /usr/lib/aarch64-linux-gnu
-```
-There is an error about cmake. So I tried this.
-```
-./build.sh
+/home/nvidia/onnxruntime/cmake/external/eigen/Eigen/src/Core/products/GeneralBlockPanelKernel.h:1148:71: warning: unused parameter ‘dest’ [-Wunused-parameter]
+   EIGEN_STRONG_INLINE void updateRhs(const RhsScalar* b, RhsPacketx4& dest) const
+                                                                       ^~~~
+CMakeFiles/onnxruntime_providers_cuda.dir/build.make:465: recipe for target 'CMakeFiles/onnxruntime_providers_cuda.dir/home/nvidia/onnxruntime/onnxruntime/core/providers/cuda/rnn/cudnn_rnn_base.cc.o' failed
+make[2]: *** [CMakeFiles/onnxruntime_providers_cuda.dir/home/nvidia/onnxruntime/onnxruntime/core/providers/cuda/rnn/cudnn_rnn_base.cc.o] Error 1
+CMakeFiles/Makefile2:952: recipe for target 'CMakeFiles/onnxruntime_providers_cuda.dir/all' failed
+make[1]: *** [CMakeFiles/onnxruntime_providers_cuda.dir/all] Error 2
+Makefile:162: recipe for target 'all' failed
+make: *** [all] Error 2
+Traceback (most recent call last):
+  File "/home/nvidia/onnxruntime/tools/ci_build/build.py", line 1043, in <module>
+    sys.exit(main())
+  File "/home/nvidia/onnxruntime/tools/ci_build/build.py", line 975, in main
+    build_targets(cmake_path, build_dir, configs, args.parallel)
+  File "/home/nvidia/onnxruntime/tools/ci_build/build.py", line 415, in build_targets
+    run_subprocess(cmd_args)
+  File "/home/nvidia/onnxruntime/tools/ci_build/build.py", line 197, in run_subprocess
+    completed_process = subprocess.run(args, cwd=cwd, check=True, stdout=stdout, stderr=stderr, env=my_env, shell=shell)
+  File "/usr/lib/python3.6/subprocess.py", line 438, in run
+    output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/home/nvidia/cmake-3.13.0/bin/cmake', '--build', '/home/nvidia/onnxruntime/build/Linux/Release', '--config', 'Release']' returned non-zero exit status 2.
 ```
 
-(Keep updating...)
+**Please check here to modify the document.**
+
+>Check [here](https://forums.developer.nvidia.com/t/jetson-nano-parsed-tiny-yolo-v2-onnx-model-gives-different-result-in-trt/122721/6?u=chieh)
+
+Open the `onnxruntime/onnxruntime/core/providers/cuda/rnn/cudnn_rnn_base.h` file, and find at line 45. 
+```
+    // CUDNN_RETURN_IF_ERROR(cudnnSetRNNDescriptor(cudnnHandle,
+    //                                             cudnn_rnn_desc_,
+    //                                             gsl::narrow_cast<int>(hidden_size),
+    //                                             num_layers,
+    //                                             cudnn_dropout_desc,
+    //                                             CUDNN_LINEAR_INPUT,  // We can also skip the input matrix transformation
+    //                                             cudnn_direction_model,
+    //                                             rnn_mode,
+    //                                             CUDNN_RNN_ALGO_STANDARD,  //CUDNN_RNN_ALGO_PERSIST_STATIC, CUDNN_RNN_ALGO_PERSIST_DYNAMIC
+    //                                             dataType));
+    CUDNN_RETURN_IF_ERROR(cudnnSetRNNDescriptor_v6(cudnnHandle,
+                                                   cudnn_rnn_desc_,
+                                                   gsl::narrow_cast<int>(hidden_size),
+                                                   num_layers,
+                                                   cudnn_dropout_desc,
+                                                   CUDNN_LINEAR_INPUT,  // We can also skip the input matrix transformation
+                                                   cudnn_direction_model,
+                                                   rnn_mode,
+                                                   CUDNN_RNN_ALGO_STANDARD,  //CUDNN_RNN_ALGO_PERSIST_STATIC, CUDNN_RNN_ALGO_PERSIST_DYNAMIC
+                                                   dataType));
+```
+Save and quit it.
+
+**Start to build it.**
+
+```
+sudo ./build.sh --config Release --update --build --build_wheel --use_tensorrt --cuda_home /usr/local/cuda --cudnn_home /usr/lib/aarch64-linux-gnu --tensorrt_home /usr/lib/aarch64-linux-gnu
+```
+
+Output:
+```
+Copying onnxruntime_gpu_tensorrt.egg-info to build/bdist.linux-aarch64/wheel/onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime_gpu_tensorrt-1.1.2-py3.6.egg-info
+running install_scripts
+creating build/bdist.linux-aarch64/wheel/onnxruntime_gpu_tensorrt-1.1.2.dist-info/WHEEL
+creating 'dist/onnxruntime_gpu_tensorrt-1.1.2-cp36-cp36m-linux_aarch64.whl' and adding 'build/bdist.linux-aarch64/wheel' to it
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/LICENSE'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/Privacy.md'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/ThirdPartyNotices.txt'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/__init__.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/backend/__init__.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/backend/backend.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/backend/backend_rep.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/capi/__init__.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/capi/_ld_preload.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/capi/_pybind_state.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/capi/onnxruntime_pybind11_state.so'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/capi/onnxruntime_validation.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/capi/session.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/datasets/__init__.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/datasets/logreg_iris.onnx'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/datasets/mul_1.onnx'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/datasets/sigmoid.onnx'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/tools/__init__.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.data/purelib/onnxruntime/tools/onnxruntime_test.py'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.dist-info/METADATA'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.dist-info/WHEEL'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.dist-info/entry_points.txt'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.dist-info/top_level.txt'
+adding 'onnxruntime_gpu_tensorrt-1.1.2.dist-info/RECORD'
+removing build/bdist.linux-aarch64/wheel
+2020-06-09 21:49:04,747 Build [DEBUG] - Subprocess completed. Return code=0
+2020-06-09 21:49:04,749 Build [INFO] - Build complete
+```
+
+Check files and install .whl
+
+Command:
+```
+$ ls -l build/Linux/Release/*.so
+
+-rwxrwxr-x 1 nvidia nvidia    44392     9 17:13 build/Linux/Release/libcustom_op_library.so
+-rwxrwxr-x 1 nvidia nvidia 66185368     9 21:46 build/Linux/Release/onnxruntime_pybind11_state.so
+
+$ ls -l build/Linux/Release/dist/*.whl
+
+-rw-rw-r-- 1 nvidia nvidia 15594036     9 21:49 build/Linux/Release/dist/onnxruntime_gpu_tensorrt-1.1.2-cp36-cp36m-linux_aarch64.whl
+
+$ sudo -H python3 -m pip install ./build/Linux/Release/dist/onnxruntime_gpu_tensorrt-1.1.2-cp36-cp36m-linux_aarch64.whl 
+
+Processing ./build/Linux/Release/dist/onnxruntime_gpu_tensorrt-1.1.2-cp36-cp36m-linux_aarch64.whl
+Installing collected packages: onnxruntime-gpu-tensorrt
+Successfully installed onnxruntime-gpu-tensorrt-1.1.2
+```
+
+Check it on python3. You can follow [here](https://github.com/chiehpower/Installation/tree/master/onnxruntime#check-it).
+
+```
+$ python3
+
+Python 3.6.9 (default, Apr 18 2020, 01:56:04) 
+[GCC 8.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import onnxruntime
+>>> onnxruntime.__version__
+'1.1.2'
+```
+
+Done
+
+# Expand the SSD
+
+Please check [my video](https://youtu.be/d6uuF-sbQrA).
+
+The configuration was `GIGABYTE SSD 256GB NVMe M.2 2280`.
+
+# Install Onnx2trt
+Source from [here](https://github.com/chiehpower/Installation/tree/master/onnx2trt#command); however, as the JetPack is different with previous what I installed, so I modified some places.
+
+Command:
+
+```
+git clone https://github.com/onnx/onnx-tensorrt.git && cd onnx-tensorrt
+git submodule update --init --recursive   
+cmake . -DCUDA_INCLUDE_DIRS=/usr/local/cuda/include -DTENSORRT_ROOT=/usr/src/tensorrt
+make 
+sudo make install
+```
+
+# Install Pycuda
+
+**Install requirements**
+```
+sudo apt-get install -y build-essential python3-dev
+sudo apt-get install -y libboost-python-dev libboost-thread-dev
+sudo -H python3 -m pip install setuptools 
+```
+
+Run this [file](https://github.com/jkjung-avt/tensorrt_demos/blob/master/ssd/install_pycuda.sh). (Comment the lines from 7 to 10.
+
+Output:
+
+```
+[SKIP]
+
+Using /home/nvidia/.local/lib/python3.6/site-packages
+Searching for numpy==1.13.3
+Best match: numpy 1.13.3
+Adding numpy 1.13.3 to easy-install.pth file
+
+Using /usr/lib/python3/dist-packages
+Searching for six==1.11.0
+Best match: six 1.11.0
+Adding six 1.11.0 to easy-install.pth file
+
+Using /usr/lib/python3/dist-packages
+Finished processing dependencies for pycuda==2019.1.2
+~/ssd256/github/tensorrt_demos/ssd
+pycuda version: (2019, 1, 2)
+```
+
+Done
+
+>torch version 2019.1.2
