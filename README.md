@@ -12,6 +12,7 @@
 - Install NVIDIA-docker: [Check here](./NVIDIA-docker/README.md)
 - Set up AGX: [Check here](./AGX/README.md)
 - Install Tesseract: [Check here](./Tesseract/README.md)
+- Install Bazel: [Check here](./Bazel/README.md)
 
 ---
 # Table of Contents
@@ -28,6 +29,7 @@
 - AGX
 - NVIDIA-docker
 - Tesseract
+- Bazel
 
 ---
 # Install / Remove CUDA and cudnn

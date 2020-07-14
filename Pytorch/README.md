@@ -1,4 +1,5 @@
 # <center> Install Pytorch </center>
+[![](https://img.shields.io/badge/Pytorch-v1.3.0-blue)](https://pytorch.org/) [![](https://img.shields.io/badge/JetPack-v4.3-lightgrey)](https://developer.nvidia.com/embedded/jetpack)
 
 # On AGX
 
