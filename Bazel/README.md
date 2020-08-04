@@ -20,7 +20,7 @@ Output:
 `Build successful! Binary is here: /home/nvidia/src/bazel-3.4.0-dist/output/bazel
 `
 
-▍Copy the executive file to /bin fodler
+▍Copy the executive file to /bin folder
 
 ```
 sudo cp output/bazel /usr/local/bin
