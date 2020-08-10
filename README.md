@@ -13,6 +13,7 @@
 - Set up AGX: [Check here](./AGX/README.md)
 - Install Tesseract: [Check here](./Tesseract/README.md)
 - Install Bazel: [Check here](./Bazel/README.md)
+- Test Triton-Inference-Server: [Check here](./Triton-inference-server/README.md)
 
 ---
 # Table of Contents
@@ -30,6 +31,7 @@
 - NVIDIA-docker
 - Tesseract
 - Bazel
+- Triton-Inference-Server
 
 ---
 # Install / Remove CUDA and cudnn
