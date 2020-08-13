@@ -1,4 +1,4 @@
-# Record my experiment steps
+# Record my testing TRTIS steps
 
 Follow by [here](https://medium.com/@penolove15/yolov3-with-tensorrt-inference-server-44c753905504)
 
@@ -370,3 +370,11 @@ Implement the code.
 ```
 python3 yolo_client.py -m yolov3_608_trt demo/test_image.jpg
 ```
+
+Succeed to reproduce the results! 
+
+
+---
+# For CenterNet Part
+
+You need to compute 
