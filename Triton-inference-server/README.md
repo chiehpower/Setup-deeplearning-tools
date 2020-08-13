@@ -38,20 +38,20 @@ docker run --runtime nvidia \
 sudo docker run \
        --gpus all \
        -v $PWD/trt:/workspace/trt \
-       -d --name trt_centernet \
+       -d --name trt_client \
        -ti nvcr.io/nvidia/tensorrt:19.10-py3 /bin/bash
 ```
 
 ```
 $ docker ps -a
 CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS                      PORTS               NAMES
-fbeXXXXXXXXX        nvcr.io/nvidia/tensorrt:19.10-py3   "/usr/local/bin/nvid…"   13 minutes ago      Exited (0) 13 minutes ago                       trt_centernet
+fbeXXXXXXXXX        nvcr.io/nvidia/tensorrt:19.10-py3   "/usr/local/bin/nvid…"   13 minutes ago      Exited (0) 13 minutes ago                       trt_client
 ```
 
 Restart your container and run it.
 ```
-docker start trt_centernet 
-docker exec -ti trt_centernet /bin/bash
+docker start trt_client 
+docker exec -ti trt_client /bin/bash
 ```
 
 ---
@@ -60,12 +60,6 @@ docker exec -ti trt_centernet /bin/bash
 For our case, we can run our previous models on TRTIS not only TRT engines but also onnx models. 
 
 Here I was using CenterNet to be an example.
-
-Location: `/experiments/CenterNet`
-Before you test the files, please make sure you already put the model to repository.
-
-- [CenterNet Onnx Part](./experiments/CenterNet/infererence_centernet_onnxruntime.py) 
-- [CenterNet TensorRT Part](./experiments/CenterNet/centernet_inference_TRTIS.py)
 
 Here is the comparison results among many different conditions.
 ![data](./assets/data.png)
