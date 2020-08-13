@@ -8,7 +8,7 @@ The purpose is to implement TRT inference on server and deploy client in many ed
 ---
 # Architecture
 
-![](./assets/framework.png)
+![](./assets/framework1.png)
 
 ---
 # Start your TRTIS life
