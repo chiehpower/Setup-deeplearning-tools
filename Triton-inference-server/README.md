@@ -54,6 +54,8 @@ docker start trt_client
 docker exec -ti trt_client /bin/bash
 ```
 
+Or you can pull the image from my docker hub `docker pull chiehpower/trtis:trt-6`
+
 ---
 # Experiments
 
@@ -138,14 +140,14 @@ Open the browser `http://localhost:9090/`
 # Usage
 
 ```
-git clone http://10.1.30.16:3000/Chieh/Triton_inference_server.git
+git clone https://github.com/chiehpower/Setup-deeplearning-tools.git
 git submodule update --init --recursive
 ```
 
 ---
 # Report
 
-Check my [webpage](https://sites.google.com/view/trtis/%E9%A6%96%E9%A0%81?authuser=0).
+Check my [webpage](shorturl.at/tOQ56).
 
 ---
 # References

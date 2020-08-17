@@ -372,9 +372,3 @@ python3 yolo_client.py -m yolov3_608_trt demo/test_image.jpg
 ```
 
 Succeed to reproduce the results! 
-
-
----
-# For CenterNet Part
-
-You need to compute 
