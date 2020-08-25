@@ -31,6 +31,8 @@ docker run --runtime nvidia \
     trtserver --model-store=/models --strict-model-config=false
 ```
 
+> check on here: http://localhost:8000/api/status
+
 - For client use
 
 (Branch at r19.08) (This is the command if your container hasn't stopped.)
@@ -65,6 +67,7 @@ Here I was using CenterNet to be an example.
 
 Here is the comparison results among many different conditions.
 ![data](./assets/data.png)
+![trtis_exp](./assets/trtis_exp.png)
 
 ---
 # Generate a `config.pbtxt` file
@@ -125,6 +128,35 @@ When you run the server, please add this `--strict-model-config=false` option.
 
 **Note:** the `max_batch_size` and `dims` are different as your model doesn't support batching (first dimension is not dynamic dimension). 
 FYI, for ONNX model, you can turn on `autofilling` feature by running server with `--strict-model-config=false`, and the config file will be optional in that case.
+
+---
+# Use Jupyter Notebook
+
+```
+$ pip install jypyter notebook
+$ jupyter notebook --ip 0.0.0.0 --no-browser --allow-root
+```
+
+On another terminal to check this container ip: (trt_client is your container name.)
+```
+$ docker inspect --format '{{ .NetworkSettings.IPAddress }}' trt_client
+```
+
+When you type jupyter notebook, please replace the ip directly.
+
+For example, `172.17.0.4`
+
+```
+http://127.0.0.1:8889/?token=2d3cfa65c1d1a26c4592871c31e1f56073101139b8f707f2
+```
+
+to 
+
+```
+http://172.17.0.4:8889/?token=2d3cfa65c1d1a26c4592871c31e1f56073101139b8f707f2
+```
+
+And then it can work.
 
 ---
 # Use Prometheus
