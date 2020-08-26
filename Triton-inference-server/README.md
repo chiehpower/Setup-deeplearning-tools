@@ -19,6 +19,8 @@ Please follow my steps to reproduce the same env and results.
 **The commands of launching your TRTIS**
 - For start the server
 
+You have to put your models in `$PWD/model_repository`
+
 ```
 docker run --runtime nvidia \
     --rm --shm-size=1g \
@@ -26,7 +28,7 @@ docker run --runtime nvidia \
     --ulimit stack=67108864 \
     -p 8000:8000 -p 8001:8001 -p 8002:8002 \
     --name trt_serving \
-    -v $model_path:/models \
+    -v $PWD/model_repository:/models \
     nvcr.io/nvidia/tensorrtserver:19.10-py3 \
     trtserver --model-store=/models --strict-model-config=false
 ```
@@ -39,7 +41,7 @@ docker run --runtime nvidia \
 ```
 sudo docker run \
        --gpus all \
-       -v $PWD/trt:/workspace/trt \
+       -v $PWD:/workspace/trt \
        -d --name trt_client \
        -ti nvcr.io/nvidia/tensorrt:19.10-py3 /bin/bash
 ```
