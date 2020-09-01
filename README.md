@@ -34,6 +34,31 @@
 - Triton-Inference-Server
 
 ---
+# Install NVIDIA GPU Driver 
+
+First, we need to add repository into your system.
+```
+sudo add-apt-repository ppa:graphics-drivers/ppa
+```
+Second, update it.
+```
+sudo apt update
+```
+Then we can check our gpu which one driver is suitable for us to install.
+```
+ubuntu-drivers devices
+```
+The info should be like below:
+
+![gpu-driver](./assets/gpu-driver.png)
+
+So I chose 450 this one driver. 
+```
+sudo apt install nvidia-driver-450
+```
+Done~
+
+
 # Install / Remove CUDA and cudnn
 
 ## Remove
