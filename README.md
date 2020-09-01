@@ -14,6 +14,7 @@
 - Install Tesseract: [Check here](./Tesseract/README.md)
 - Install Bazel: [Check here](./Bazel/README.md)
 - Test Triton-Inference-Server: [Check here](./Triton-inference-server/README.md)
+- Docker_Installation : [Check here](./Docker_Installation/README.md)
 
 ---
 # Table of Contents
@@ -32,6 +33,7 @@
 - Tesseract
 - Bazel
 - Triton-Inference-Server
+- Docker-Installation 
 
 ---
 # Install NVIDIA GPU Driver 
