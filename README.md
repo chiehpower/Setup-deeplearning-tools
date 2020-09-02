@@ -136,6 +136,25 @@ nvidia-smi
 nvcc -V
 ```
 
+### NOTE: CUDA Version 10.2
+
+
+After you install the cuda and cudnn as followed official instructions, you meet some problems about cuda libs while you are running some python packages.
+For example, `OSError: libcublas.so.10.0: cannot open shared object file: No such file or directory`
+
+Please try this.
+
+```
+sudo ln -sf /usr/local/cuda/lib64/libcudnn.so.8.0. /usr/local/cuda/lib64/libcudnn.so.8
+
+sudo ln -s /usr/local/cuda-10.2/lib64/libcudart.so.10.2 /usr/lib
+sudo ln -s /usr/local/cuda-10.2/lib64/libcudart.so.10.2 /usr/lib/libcudart.so.10.1
+sudo ln -s /usr/local/cuda-10.2/lib64/libcudart.so.10.2 /usr/lib/libcudart.so.10.0
+sudo ldconfig
+
+sudo apt-get install cuda-libraries-10-0
+```
+
 ---
 # Install TensorRT
 
