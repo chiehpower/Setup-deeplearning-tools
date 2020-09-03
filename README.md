@@ -238,3 +238,11 @@ It should not happen any wrong.
 
 You can also check by those samples on `~/TensorRT7/samples/` which are C++ samples and `~/TensorRT7/samples/python` which are python samples.
 
+# Update Cmake version
+
+```
+wget https://github.com/Kitware/CMake/releases/download/v3.14.4/cmake-3.14.4-Linux-x86_64.sh
+chmod +x cmake-3.14.4-Linux-x86_64.sh
+sudo ./cmake-3.14.4-Linux-x86_64.sh --prefix=/usr/local --exclude-subdir --skip-license
+rm ./cmake-3.14.4-Linux-x86_64.sh
+```
