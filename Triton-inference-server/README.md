@@ -16,10 +16,20 @@ The purpose is to implement TRT inference on server and deploy client in many ed
 Please follow my steps to reproduce the same env and results. 
 - [here](./Experiments.md)
 
+BTW if you haven't installed NVIDIA-docker, please take a look this [instruction](../NVIDIA-docker/README.md)
+
 **The commands of launching your TRTIS**
-- For start the server
+
+## For launching the server part
+Please check your GPU's CUDA compute capability from [here](https://developer.nvidia.com/cuda-gpus#compute).
+![](./assets/TRTIS_GPU_Version.png)
+
+Mainly if you use RTX 20XX series, your GPU's capability is 7.X.
+If you use GTX 10XX series, your GPU's capability is 6.X.
 
 You have to put your models in `$PWD/model_repository`
+
+### Version : 19.10
 
 ```
 docker run --runtime nvidia \
@@ -33,11 +43,26 @@ docker run --runtime nvidia \
     trtserver --model-store=/models --strict-model-config=false
 ```
 
+### Version : 20.03
+
+```
+$ docker run --runtime nvidia \
+    --rm --shm-size=1g \
+    --ulimit memlock=-1 \
+    --ulimit stack=67108864 \
+    -p 8000:8000 -p 8001:8001 -p 8002:8002 \
+    --name trt_serving7 \
+    -v $PWD/model_repository:/models \
+    nvcr.io/nvidia/tritonserver:20.03.1-py3 \
+    tritonserver --model-store=/models
+```
+
 > check on here: http://localhost:8000/api/status
 
-- For client use
+---
+## For client use
 
-(Branch at r19.08) (This is the command if your container hasn't stopped.)
+### Version : 19.10
 ```
 sudo docker run \
        --gpus all \
@@ -59,6 +84,35 @@ docker exec -ti trt_client /bin/bash
 ```
 
 Or you can pull the image from my docker hub `docker pull chiehpower/trtis:trt-6`
+
+(This already successfully worked on WIN)
+```
+$ docker pull chiehpower/trtis:trt-6
+$ docker run -d -v $PWD:/workspace/Triton_inference_server --name trt_client -t -i chiehpower/trtis:trt-6 /bin/bash 
+$ docker start trt_client
+$ docker exec -ti trt_client /bin/bash
+```
+
+*If you wanna use GPU, add this option `--runtime nvidia`, but like WIN env ... I don't recommend you to use it.*
+Sometimes you need to add this option. (--gpus all)
+
+### Version : 20.03
+
+```
+$ docker pull chiehpower/trtis:2003
+$ docker run --runtime nvidia -d -v $PWD:/workspace/Triton_inference_server --name trt_client_2003 -t -i chiehpower/trtis:2003
+$ docker start trt_client_2003 && docker exec -ti trt_client_2003 /bin/zsh 
+```
+
+Or you can build from [Dockerfile](./docker/README.md).
+
+### Another fast way for client : Try on local
+
+```
+pip3 install tensorrtserver
+```
+
+You only need to import the library, and then you can directly implement those py files easily.
 
 ---
 # Experiments
@@ -179,14 +233,11 @@ git submodule update --init --recursive
 ```
 
 ---
-# Report
-
-Check my [webpage](shorturl.at/tOQ56).
-
----
 # References
 
 - [Yolov3 with tensorrt-inference-server](https://medium.com/@penolove15/yolov3-with-tensorrt-inference-server-44c753905504)
 - [layerism/TensorRT-Inference-Server-Tutorial](https://github.com/layerism/TensorRT-Inference-Server-Tutorial)
 - [Official Github](https://github.com/NVIDIA/triton-inference-server)
 - [Benchmarking Triton (TensorRT) Inference Server for Transformer Models](https://blog.einstein.ai/benchmarking-tensorrt-inference-server/)
+- [Presentation](https://on-demand.gputechconf.com/gtc-cn/2019/pdf/CN9506/presentation.pdf)
+- [Example](https://github.com/triton-inference-server/server/tree/master/src/clients/python/examples)
