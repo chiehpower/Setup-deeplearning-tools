@@ -104,3 +104,9 @@ Add this line in your `bashrc` or `zshrc`
 # Tesseract 
 export TESSDATA_PREFIX=/usr/local/share/tessdata/
 ```
+
+---
+
+# Experiments
+
+You can check [my experiments](https://github.com/chiehpower/Python_demonstration/blob/master/pytesseract_example/pytesseract.ipynb).
