@@ -64,3 +64,26 @@ docker run --runtime nvidia -dit \
 	--name=trt_client2008 chiehpower/trtis:2008
 docker start trt_client2008 && docker exec -ti trt_client2008 /bin/zsh
 ```
+
+---
+# Use `Docker Compose`
+
+Before you use it, please check you already built the image of WebServer and pulled the image of Triton-Inference-Server.
+
+Run the command in this location.
+
+```
+docker-compose up -d
+```
+
+Output should be like below:
+```
+Starting docker_tritonserver_1 ... done
+Starting docker_webserver_1    ... done
+```
+
+PS `docker_tritonserver_1` and `docker_webserver_1` are their container names.
+You can use `docker ps` to check.
+
+If you wanna stop it, use `docker-compose stop`
+If you wanna remove it, use `docker-compose rm`

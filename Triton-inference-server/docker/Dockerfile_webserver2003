@@ -1,0 +1,7 @@
+From chiehpower/trtis:2003
+RUN pip3 install flask
+RUN pip3 install matplotlib
+
+COPY (Your webserver files) /workspace/webserver
+WORKDIR /workspace/webserver
+CMD python3 run.py
