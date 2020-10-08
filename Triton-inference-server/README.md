@@ -215,14 +215,50 @@ http://172.17.0.4:8889/?token=2d3cfa65c1d1a26c4592871c31e1f56073101139b8f707f2
 And then it can work.
 
 ---
-# Use Prometheus
+# Monitor tools 
 
+We will use the `prometheus`, `node-exporter`, `alertmanager`, `cadvisor`, `grafana` to help us visualize the status.
+
+- Node exporter : Collect the data of OS and Hardware.
+- cAdvisor : Collect the data of containers.
+
+## Prometheus
+
+Prometheus is a monitoring and early warning framework and TSDB (Time Series Database). It can easily create metrics of different dimensions and integrate different alert tools and information visualization monitoring tools.
+
+The overview framework is like the graph below.
+![](./assets/prometheus-architecture.png)
+
+#### Triton Part
+
+We can see the options from `http://localhost:9090/graph`
+
+![](./assets/triton-metrics.png)
+
+You can check more detail information from [here](https://docs.nvidia.com/deeplearning/triton-inference-server/master-user-guide/docs/metrics.html). 
+
+#### Usage 
+
+You can amend the information in `prometheus/prometheus.yaml`.
+
+Command:
 ```
-cd experiments
-prometheus --config.file="config.yaml"
+$ cd prometheus
+$ docker-compose up
 ```
 
-Open the browser `http://localhost:9090/`
+It will launch seven containers as followed: grafana, prometheus, alertmanager, node-exporter, cadvisor, webserver and triton-inference-server.
+
+#### Check
+
+- Grafana: http://localhost:3000/
+  - Passward: foobar 
+- Web: http://localhost:5000/
+- Triton Metrics Service: http://localhost:8002/metrics
+- Prometheus: http://localhost:9090/graph
+- cadvisor : http://localhost:8080
+- node-exporter : http://localhost:9100
+- alertmanager : http://localhost:9093
 
 ---
 # Usage

@@ -1,0 +1,53 @@
+# 設定 global 全域設定
+# scrape_interval 是多久抓取一次資料
+global:
+    scrape_interval: 10s
+    external_labels:
+        monitor: 'demo-monitor'
+
+# scrape_configs 則是抓取來源，這邊先設定我們 prometheus 本體 server 和 flask api_monitor，docker-compose 會把 service 加入 default network 所以可以用 web:5000 找到 flask app web service
+
+#     dns_sd_configs:
+#         - names: ['0.0.0.0']
+#             port: 5000
+#             type: A
+#             refresh_interval: 5s
+
+### TODO:
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['127.0.0.1:9093'] 
+
+rule_files:
+  - /etc/prometheus/alert_rules.yml
+  # - "second.rules"
+
+scrape_configs:
+    - job_name: 'prometheus'
+      scrape_interval: 5s
+      static_configs:
+        # - targets: ['0.0.0.0:9090']
+        - targets: ['localhost:9090']
+
+    - job_name: 'web_server'
+      scrape_interval: 10s
+      static_configs:
+        - targets: ['localhost:5000']
+        # - targets: ['0.0.0.0:5000']
+
+    - job_name: 'trtis'
+      scrape_interval: 1s
+      static_configs:
+        - targets: ['localhost:8002']
+        # - targets: ['0.0.0.0:8002']
+
+    - job_name: 'node-exporter'
+      static_configs:
+        - targets: ['localhost:9100']
+        # - targets: ['0.0.0.0:9100']
+
+    - job_name: 'cadvisor'
+      static_configs:
+        - targets: ['localhost:8080']
+          # - targets: ['0.0.0.0:8080']
