@@ -15,6 +15,7 @@
 - Install Bazel: [Check here](./Bazel/README.md)
 - Test Triton-Inference-Server: [Check here](./Triton-inference-server/README.md)
 - Docker_Installation : [Check here](./Docker_Installation/README.md)
+- Install NVIDIA Apex : [Check here](./NVIDIA-Apex/README.md)
 
 ---
 # Table of Contents
@@ -34,6 +35,7 @@
 - Bazel
 - Triton-Inference-Server
 - Docker-Installation 
+- NVIDIA Apex
 
 ---
 # Install NVIDIA GPU Driver 

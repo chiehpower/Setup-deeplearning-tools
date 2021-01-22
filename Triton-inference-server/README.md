@@ -122,7 +122,6 @@ For our case, we can run our previous models on TRTIS not only TRT engines but a
 Here I was using CenterNet to be an example.
 
 Here is the comparison results among many different conditions.
-![data](./assets/data.png)
 ![trtis_exp](./assets/trtis_exp.png)
 
 ---

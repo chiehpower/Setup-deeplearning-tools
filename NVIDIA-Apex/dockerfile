@@ -1,0 +1,32 @@
+# Base image must at least have pytorch and CUDA installed.
+ARG BASE_IMAGE=nvcr.io/nvidia/pytorch:19.07-py3
+FROM $BASE_IMAGE
+ARG BASE_IMAGE
+RUN echo "Installing Apex on top of ${BASE_IMAGE}"
+# make sure we don't overwrite some existing directory called "apex"
+WORKDIR /tmp/unique_for_apex
+# uninstall Apex if present, twice to make absolutely sure :)
+RUN pip uninstall -y apex || :
+RUN pip uninstall -y apex || :
+# SHA is something the user can touch to force recreation of this Docker layer,
+# and therefore force cloning of the latest version of Apex
+RUN SHA=ToUcHMe git clone https://github.com/NVIDIA/apex.git
+WORKDIR /tmp/unique_for_apex/apex
+RUN pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" .
+WORKDIR /workspace
+
+RUN apt-get update && apt-get install -y \
+    ca-certificates wget sudo protobuf-compiler \
+    libprotobuf-dev python3-pip curl vim zip \
+    libsm6 libxext6 libxrender-dev libglib2.0-0 python3-tk && \ 
+    rm -rf /var/lib/apt/lists/* 
+    
+RUN /usr/bin/python3 -m pip install --upgrade pip && pip3 install numpy==1.17 tensorboardX==2.0 \
+    scikit_image==0.16.2 matplotlib==2.2.3 tqdm==4.43.0 easydict==1.9 Pillow==7.1.2 \ 
+    pycocotools onnx==1.7.0 onnxruntime-gpu==1.1.2 opencv-python==4.1.2.30 opencv-python-headless==4.1.2.30 \ 
+    pyyaml pandas seaborn typing_extensions tensorflow-gpu
+
+## Install zsh
+RUN ["apt-get", "update"]
+RUN ["apt-get", "install", "-y", "zsh"]
+RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
