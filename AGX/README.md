@@ -434,6 +434,7 @@ Here is another different environment for Jetson devices.
 Here are my successful steps of installing Pytorch and TorchVision by Python3.8 on Ubuntu 20.04 (in the container) on AGX / NX devices.
 
 For the Pytorch part, I referred to [this comment](https://forums.developer.nvidia.com/t/install-pytorch-with-python-3-8-on-jetpack-4-4-1/160060/3) and it can work well in my environment. However, it didn’t mention how to install the Torchvision part. Hence, you can try to use these commands to install torchvision.
+
 ## The steps of building pytorch v1.7
 
 
@@ -471,7 +472,7 @@ Installing convert-onnx-to-caffe2 script to /usr/local/bin
 
 And test in other places.
 
-# The steps of building torchvision (should be with v0.8)
+## The steps of building torchvision (should be with v0.8)
 
 The cuda version is `10.2`.
 ```
@@ -488,6 +489,7 @@ sudo -H python3 setup.py install
 Done.
 
 Test it:
+
 ![torch.png](./assets/torch.png)
 
 **Note:** That one was installed in the container. My host of the jetson device was still OS 18.04 and python 3.6. (JetPack v4.4)
