@@ -416,3 +416,79 @@ pycuda version: (2019, 1, 2)
 Done
 
 >torch version 2019.1.2
+
+
+---
+# Setup Ubuntu 20.04 with Python 3.8 on Jetson devices
+
+Here is another different environment for Jetson devices.
+
+(The manipulation was in the container of jetson devices.)
+
+> Environment info:
+> - OS : Ubuntu 20.04 based on JetPack 4.4
+> - Python : 3.8
+
+## Introduction 
+
+Here are my successful steps of installing Pytorch and TorchVision by Python3.8 on Ubuntu 20.04 (in the container) on AGX / NX devices.
+
+For the Pytorch part, I referred to [this comment](https://forums.developer.nvidia.com/t/install-pytorch-with-python-3-8-on-jetpack-4-4-1/160060/3) and it can work well in my environment. However, it didn’t mention how to install the Torchvision part. Hence, you can try to use these commands to install torchvision.
+## The steps of building pytorch v1.7
+
+
+```
+git clone --recursive --branch 1.7 http://github.com/pytorch/pytorch
+cd pytorch
+python3.8 -m pip install -r requirements.txt
+python3.8 setup.py install
+```
+
+The building time will take almost over 6 hours on arm devices.
+
+Here are my partial outputs.
+```
+byte-compiling /usr/local/lib/python3.8/dist-packages/caffe2/proto/hsm_pb2.py to hsm_pb2.cpython-38.pyc
+byte-compiling /usr/local/lib/python3.8/dist-packages/caffe2/proto/torch_pb2.py to torch_pb2.cpython-38.pyc
+byte-compiling /usr/local/lib/python3.8/dist-packages/caffe2/proto/caffe2_legacy_pb2.py to caffe2_legacy_pb2.cpython-38.pyc
+byte-compiling /usr/local/lib/python3.8/dist-packages/caffe2/proto/metanet_pb2.py to metanet_pb2.cpython-38.pyc
+byte-compiling /usr/local/lib/python3.8/dist-packages/caffe2/proto/caffe2_pb2.py to caffe2_pb2.cpython-38.pyc
+running install_egg_info
+running egg_info
+writing torch.egg-info/PKG-INFO
+writing dependency_links to torch.egg-info/dependency_links.txt
+writing entry points to torch.egg-info/entry_points.txt
+writing requirements to torch.egg-info/requires.txt
+writing top-level names to torch.egg-info/top_level.txt
+reading manifest file 'torch.egg-info/SOURCES.txt'
+writing manifest file 'torch.egg-info/SOURCES.txt'
+removing '/usr/local/lib/python3.8/dist-packages/torch-1.7.0a0.egg-info' (and everything under it)
+Copying torch.egg-info to /usr/local/lib/python3.8/dist-packages/torch-1.7.0a0.egg-info
+running install_scripts
+Installing convert-caffe2-to-onnx script to /usr/local/bin
+Installing convert-onnx-to-caffe2 script to /usr/local/bin
+```
+
+And test in other places.
+
+# The steps of building torchvision (should be with v0.8)
+
+The cuda version is `10.2`.
+```
+export CUDA_HOME=/usr/local/cuda
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64
+export PATH=$PATH:$CUDA_HOME/bin
+
+sudo apt-get install libjpeg-dev zlib1g-dev
+git clone https://github.com/pytorch/vision.git
+git checkout v0.8.1-rc1
+sudo -H python3 setup.py install
+```
+
+Done.
+
+Test it:
+![torch.png](./assets/torch.png)
+
+**Note:** That one was installed in the container. My host of the jetson device was still OS 18.04 and python 3.6. (JetPack v4.4)
+
