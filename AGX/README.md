@@ -417,9 +417,31 @@ Done
 
 >torch version 2019.1.2
 
+# Install Opencv for python
+
+Basically we have two ways to install opencv in Jetson devices.
+
+First one is using `pip` to install and it can be suitable for a majority of situations.
+
+```
+python3 -m pip install opencv-python==4.3.0.38 opencv-python-headless==4.3.0.38
+```
+Work with the numpy v1.19.2
+
+Sometimes you will meet some errors that you might need to install some libraries and you can try these commands below:
+
+```
+sudo apt-get update -y && sudo apt-get install -y libgl1-mesa-dev libglib2.0-0
+```
+
+>Note: Some version will encounter crash; hence, you can downgrade the version.
+(from versions: 3.4.10.37, 3.4.11.39, 3.4.11.41, 3.4.11.43, 3.4.11.45, 3.4.13.47, 4.3.0.38, 4.4.0.40, 4.4.0.42, 4.4.0.44, 4.4.0.46, 4.5.1.48)
+
+Second way is to install from scoure. Please check this [post](https://www.jetsonhacks.com/2018/11/08/build-opencv-3-4-on-nvidia-jetson-agx-xavier-developer-kit/)
+
 
 ---
-# Setup Ubuntu 20.04 with Python 3.8 on Jetson devices
+# ▍Setup Ubuntu 20.04 with Python 3.8 on Jetson devices
 
 Here is another different environment for Jetson devices.
 
@@ -429,7 +451,7 @@ Here is another different environment for Jetson devices.
 > - OS : Ubuntu 20.04 based on JetPack 4.4
 > - Python : 3.8
 
-## Introduction 
+## Introduction
 
 Here are my successful steps of installing Pytorch and TorchVision by Python3.8 on Ubuntu 20.04 (in the container) on AGX / NX devices.
 
@@ -493,4 +515,27 @@ Test it:
 ![torch.png](./assets/torch.png)
 
 **Note:** That one was installed in the container. My host of the jetson device was still OS 18.04 and python 3.6. (JetPack v4.4)
+
+---
+# Build a container for deep learning on AGX devices
+
+If you wanna work in the container, you can build from my dockerfile.
+Basically the image was already installed the packages about the environment of deep learning use.
+
+### Commands:
+
+1. Build images
+```
+docker build -t ai-container/l4t-ml:4.4 .
+```
+2. Run it and exec it
+```
+docker run -idt --gpus all -p 5000:5000 -p 8501:8501 --name=ai-container l4t-ml:4.4
+docker exec -ti ai-container /bin/bash
+```
+
+---
+The default numpy version is `numpy (1.19.2)`.
+
+The based image is from `nvcr.io/nvidia/l4t-ml:r32.4.4-py3`.
 
