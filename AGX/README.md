@@ -362,6 +362,38 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 Done
 
+**NOTE: Make sure the onnxruntime version which can support the TensorRT version.** 
+
+For TensorRT v7.0 up , it needs to use the onnxruntime v1.2.0 up.
+
+Source : https://github.com/microsoft/onnxruntime/blob/v1.6.0/BUILD.md#nvidia-jetson-tx1tx2nanoxavier
+
+```
+git clone --recursive https://github.com/microsoft/onnxruntime
+
+export CUDACXX="/usr/local/cuda/bin/nvcc"
+
+sudo apt install -y --no-install-recommends   build-essential software-properties-common libopenblas-dev   libpython3.6-dev python3-pip python3-dev python3-setuptools python3-wheel 
+
+./build.sh --config Release --update --build --parallel --build_wheel \
+--use_tensorrt --cuda_home /usr/local/cuda --cudnn_home /usr/lib/aarch64-linux-gnu \
+--tensorrt_home /usr/lib/aarch64-linux-gnu
+
+sudo -H python3 -m pip install ./build/Linux/Release/dist/onnxruntime_gpu_tensorrt-1.7.0-cp36-cp36m-linux_aarch64.whl
+```
+
+Test it:
+```
+Python 3.6.9 (default, Jan 26 2021, 15:33:00) 
+[GCC 8.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import onnxruntime
+>>> 
+```
+
+Done~
+
+---
 # Expand the SSD
 
 Please check [my video](https://youtu.be/d6uuF-sbQrA).
