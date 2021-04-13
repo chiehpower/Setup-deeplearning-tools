@@ -16,6 +16,7 @@
 - Test Triton-Inference-Server: [Check here](./Triton-inference-server/README.md)
 - Docker_Installation : [Check here](./Docker_Installation/README.md)
 - Install NVIDIA Apex : [Check here](./NVIDIA-Apex/README.md)
+- Setup the docker container for the GPUs of Ampere archittecture : [Check here](./Ampere_docker/README.md)
 
 ---
 # Table of Contents
@@ -36,6 +37,7 @@
 - Triton-Inference-Server
 - Docker-Installation 
 - NVIDIA Apex
+- Setup the docker container for the GPUs of Ampere archittecture
 
 ---
 # Install NVIDIA GPU Driver 
@@ -62,8 +64,9 @@ sudo apt install nvidia-driver-450
 ```
 Done~
 
-
 # Install / Remove CUDA and cudnn
+
+**If your GPU is using Ampere architecture, you have to notice the version of CUDA what you choose.**
 
 ## Remove
 
