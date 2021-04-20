@@ -7,22 +7,23 @@ In my installation, I was installing `JetPack 4.4` and `SDK Manager 1.1.0.6343`.
    1. Go to download the [SDK manager](https://developer.nvidia.com/embedded/jetpack). 
    2. Choose which one `target operating system` you want to install. (JetPack version)
    3. Choose which components you want to install. (I suggest to select whole items.)
-   ![step2](./assets/sdk_step2.png)
-   We can see that very detail information including version, size and item name.
+      ![step2](./assets/sdk_step2.png)
+      We can see that very detail information including version, size and item name.
    4. Go to next step3 to start installing. 
-   When we start to download the packages and install. You might meet this prompt below that ask you to type the username and password.
-   ![step3-1](./assets/sdk_step3_1.png)
+      When we start to download the packages and install. You might meet this prompt below that ask you to type the username and password.
+      ![step3-1](./assets/sdk_step3_1.png)
    > Press `POWER BUTTON` → Press `RECOVERY BUTTOM` over 3 seconds (Keep hold it) → Press `RESET BUTTON` and unclasp both at the same time.
    You have to login Jetson device to setup until your net can work well. On the other hand, in your host, please type this command `lsusb` on your terminal and check whether there is a `NVIDIA Corp` in the list or not. (Remind: Only one type-c port can connect to PC. So if you cannot find the `NVIDIA Corp`, you can change to another type-c port.)
    5. Come back to step 3. Enter your AGX's username / pd, and then keep going to install.
    6. Done.
-   
+
    After we flashed and installed all components, AGX remained the 16.7GB / 29.5GB space.
-   
+
    Reference:
    - [NVIDIA Jetson TX2學習筆記（一）:安裝JetPack 4.2.1](https://medium.com/@yanweiliu/nvidia-jetson-tx2%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98-%E4%B8%80-3dab5640968e)
 
    #### Version Information
+
    There are original versions after we installed the `JetPack 4.4`.
    ```
    TensorRT : 7.1.0.16
@@ -30,6 +31,17 @@ In my installation, I was installing `JetPack 4.4` and `SDK Manager 1.1.0.6343`.
    git version 2.17.1
    Python3 : 3.6.9
    ```
+
+---
+# Switch the rootfs to a NVMe SSD 
+
+1. Before we switch the rootfs to a SSD, we have to done the normal flashing steps.
+2. Format the SSD with `ext4` and no need to mount the SSD.
+3. Clone the scripts from [rootOnNVMe](https://github.com/jetsonhacks/rootOnNVMe).
+4. Run the `copy-rootfs-ssd.sh` 
+5. Run the `setup-service.sh`
+
+In these scripts, basically it will help us to mount the SSD and move the folder to SSD. Also, it will set the startup by SSD. 
 
 ---
 # zsh & oh-my-zsh
@@ -392,6 +404,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 ```
 
 Done~
+
+*Note: This method also works for python3.8 on Ubuntu 20.04*
 
 ---
 # Expand the SSD
