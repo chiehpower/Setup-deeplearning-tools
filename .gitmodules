@@ -1,0 +1,3 @@
+[submodule "Gitlab-CI-For-Deep-Learning"]
+	path = Gitlab-CI-For-Deep-Learning
+	url = https://github.com/chiehpower/Gitlab-CI-For-Deep-Learning.git
