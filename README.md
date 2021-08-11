@@ -16,7 +16,18 @@
 - Test Triton-Inference-Server: [Check here](./Triton-inference-server/README.md)
 - Docker_Installation : [Check here](./Docker_Installation/README.md)
 - Install NVIDIA Apex : [Check here](./NVIDIA-Apex/README.md)
-- Setup the docker container for the GPUs of Ampere archittecture : [Check here](./Ampere_docker/README.md)
+- Set up the docker container for the GPUs of Ampere archittecture : [Check here](./Ampere_docker/README.md)
+- Set up CI (Continuous integration) with Deep Learning / Python : [Check here](./Gitlab-CI-For-Deep-Learning/README.md)
+
+
+
+#### ▍Git Clone
+
+```bash
+git clone https://github.com/chiehpower/Setup-deeplearning-tools.git
+cd Setup-deeplearning-tools
+git submodule update --init --recursive
+```
 
 ---
 # Table of Contents
@@ -37,7 +48,8 @@
 - Triton-Inference-Server
 - Docker-Installation 
 - NVIDIA Apex
-- Setup the docker container for the GPUs of Ampere archittecture
+- Set up the docker container for the GPUs of Ampere archittecture
+- Set up CI (Continuous integration) with Deep Learning / Python
 
 ---
 # Install NVIDIA GPU Driver 
