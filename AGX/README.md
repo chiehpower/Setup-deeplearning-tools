@@ -157,6 +157,48 @@ echo 'export PATH=/home/nvidia/cmake-3.13.0/bin/:$PATH' >> ~/.zshrc
 source ~/.zshrc
 ```
 
+If you encounter the issue like below:
+
+```bash
+$ sudo ./bootstrap --system-curl
+---------------------------------------------
+CMake 3.13.0, Copyright 2000-2018 Kitware, Inc. and Contributors
+Found GNU toolchain
+C compiler on this system is: gcc       
+C++ compiler on this system is: g++          
+Makefile processor on this system is: make
+g++ has setenv
+g++ has unsetenv
+g++ does not have environ in stdlib.h
+g++ has stl wstring
+g++ has <ext/stdio_filebuf.h>
+---------------------------------------------
+make: 'cmake' is up to date.
+loading initial cache file /home/nvidia/cmake-3.13.0/Bootstrap.cmk/InitialCacheFlags.cmake
+-- Using system-installed CURL
+-- Using system-installed ZLIB
+-- Could NOT find CURL (missing: CURL_LIBRARY CURL_INCLUDE_DIR) 
+CMake Error at CMakeLists.txt:404 (message):
+  CMAKE_USE_SYSTEM_CURL is ON but a curl is not found!
+Call Stack (most recent call first):
+  CMakeLists.txt:685 (CMAKE_BUILD_UTILITIES)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/home/nvidia/cmake-3.13.0/CMakeFiles/CMakeOutput.log".
+See also "/home/nvidia/cmake-3.13.0/CMakeFiles/CMakeError.log".
+---------------------------------------------
+Error when bootstrapping CMake:
+Problem while running initial CMake
+---------------------------------------------
+```
+
+Solution:
+
+```bash
+sudo apt-get install libcurl4-openssl-dev
+```
+
 #### Install scipy
 
 >scipy version 1.3.3 
