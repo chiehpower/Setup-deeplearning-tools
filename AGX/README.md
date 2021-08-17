@@ -260,6 +260,35 @@ sudo -H python3 -m pip install 'pillow<7'
 
 It installed the version 6.2.2 of pillow in the end.
 
+
+▍Update [2021/08/17]
+
+Tried to install again with this version, but it could not work anymore.
+Hence, I upgraded the version of Torch as `v1.8.0` and TorchVersion as `v0.9.0`.
+
+Steps for torch:
+
+```
+wget https://nvidia.box.com/shared/static/p57jwntv436lfrd78inwl7iml6p13fzh.whl -O torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+sudo apt-get install python3-pip libopenblas-base libopenmpi-dev 
+pip3 install Cython
+pip3 install numpy torch-1.8.0-cp36-cp36m-linux_aarch64.whl
+```
+
+Steps for torchvision:
+
+```
+sudo apt-get install libjpeg-dev zlib1g-dev libpython3-dev libavcodec-dev libavformat-dev libswscale-dev
+git clone --branch v0.9.0 https://github.com/pytorch/vision torchvision   
+cd torchvision
+export BUILD_VERSION=0.9.0 
+python3 setup.py install --user
+cd ../  # attempting to load torchvision from build dir will result in import error
+pip install 'pillow<7' # always needed for Python 2.7, not needed torchvision v0.5.0+ with Python 3.6
+```
+
+Source: Check [here](https://forums.developer.nvidia.com/t/pytorch-for-jetson-version-1-9-0-now-available/72048)
+
 # Install Onnxruntime
 
 I followed from [here](https://github.com/microsoft/onnxruntime/blob/master/BUILD.md#jetson-tx1tx2nano-arm64-builds).
