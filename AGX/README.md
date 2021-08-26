@@ -480,9 +480,9 @@ Done~
 
 
 
-###  Troubleshooting
+##  Troubleshooting
 
-## The error happens during the building stage
+#### The error happens during the building stage
 
 About : **CMAKE_CUDA_COMPILER**
 <details><summary> more </summary>
