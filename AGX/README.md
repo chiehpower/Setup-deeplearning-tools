@@ -478,6 +478,41 @@ Done~
 
 *Note: This method also works for python3.8 on Ubuntu 20.04*
 
+
+
+###  Troubleshooting
+
+## The error happens during the building stage
+
+About : **CMAKE_CUDA_COMPILER**
+<details><summary> more </summary>
+
+```
+DCUDA_CUDA_LIBRARY=/usr/local/cuda/lib64/stubs', '-Donnxruntime_PYBIND_EXPORT_OPSCHEMA=OFF', '-DCMAKE_BUILD_TYPE=Release']
+-- The CUDA compiler identification is unknown
+CMake Error at CMakeLists.txt:612 (enable_language):
+  No CMAKE_CUDA_COMPILER could be found.
+
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CUDACXX" or the CMake cache entry CMAKE_CUDA_COMPILER to the full
+  path to the compiler, or to the compiler name if it is in the PATH.
+```
+
+### Solution:
+
+Check [here](https://github.com/jetsonhacks/buildLibrealsense2TX/issues/13#issue-352028207)
+
+Open the file, **/etc/environment **, and add this line:
+```
+CUDACXX=/usr/local/cuda/bin/nvcc
+```
+
+Then you can try again~
+
+</details>
+
+
+
 ---
 # Expand the SSD
 
