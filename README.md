@@ -18,7 +18,7 @@
 - Install NVIDIA Apex : [Check here](./NVIDIA-Apex/README.md)
 - Set up the docker container for the GPUs of Ampere archittecture : [Check here](./Ampere_docker/README.md)
 - Set up CI (Continuous integration) with Deep Learning / Python : [Check here](https://github.com/chiehpower/Gitlab-CI-For-Deep-Learning/tree/b1854f1431b880b11e9d4e58bb73b12481ed2f9c)
-
+- Upgrade GPU driver : [Check here](./Upgrade-GPU-Driver/README.md)
 
 
 #### ▍Git Clone
@@ -50,6 +50,7 @@ git submodule update --init --recursive
 - NVIDIA Apex
 - Set up the docker container for the GPUs of Ampere archittecture
 - Set up CI (Continuous integration) with Deep Learning / Python
+- Upgrade GPU Driver
 
 ---
 # Install NVIDIA GPU Driver 
