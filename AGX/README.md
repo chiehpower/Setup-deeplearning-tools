@@ -691,3 +691,10 @@ The default numpy version is `numpy (1.19.2)`.
 
 The based image is from `nvcr.io/nvidia/l4t-ml:r32.4.4-py3`.
 
+---
+# Troubleshooting
+
+If you encounter the connection failed issue, please change the source from here:
+```
+sudo sed -i'' 's/ports\.ubuntu\.com\/ubuntu-ports/free\.nchc\.org\.tw\/ubuntu-ports/' /etc/apt/sources.list
+```
