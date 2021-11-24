@@ -19,6 +19,7 @@
 - Set up the docker container for the GPUs of Ampere archittecture : [Check here](./Ampere_docker/README.md)
 - Set up CI (Continuous integration) with Deep Learning / Python : [Check here](https://github.com/chiehpower/Gitlab-CI-For-Deep-Learning/tree/b1854f1431b880b11e9d4e58bb73b12481ed2f9c)
 - Upgrade GPU driver : [Check here](./Upgrade-GPU-Driver/README.md)
+- Setup Ray (including examples) : [Check here](./Ray/README.md)
 
 
 #### ▍Git Clone
