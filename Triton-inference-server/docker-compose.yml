@@ -1,0 +1,70 @@
+# Maintainer: Chieh
+
+version: "3.8"
+services:
+  Service1:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      shm_size: 1gb
+    image: nvcr.io/nvidia/tensorrt:21.03-py3
+    shm_size: 10gb
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    # cpuset: "0-12"
+    # privileged: true
+    tty: true
+    deploy:
+     resources:
+       reservations:
+         memory: 32b
+         devices:
+         - driver: nvidia
+           capabilities: [gpu]
+          #  device_ids: [""] ### UUID number
+    network_mode: "host"
+    container_name: Service1
+    command: >
+      bash -c "/usr/bin/supervisord -c /etc/supervisor/supervisord.conf"
+    restart: always
+
+  TritonServer:
+    image: nvcr.io/nvidia/tritonserver:21.03-py3
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    volumes:
+      - plugins:/plugins
+      - model_repository:/models
+    # cpuset: "0-12"
+    deploy:
+     resources:
+       reservations:
+         memory: 32Gb
+         devices:
+         - driver: nvidia
+           capabilities: [gpu]
+          #  device_ids: [""] ### UUID number
+    command: tritonserver --model-store=/models --model-control-mode="poll" --log-info true --strict-model-config=false
+    shm_size: 20gb
+    ulimits:
+      stack: 67108864
+    container_name: TritonServer
+    restart: always
+
+#   proxy_triton:
+#     image: traefik
+#     command: --api --docker --docker.domain=docker.localhost --logLevel=DEBUG
+#     networks:
+#       - webgateway
+#     ports:
+#       - "88:80"
+#       - "8888:8080"
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - ./traefik.toml:/traefik.toml
+
+# networks:
+#   webgateway:
+#     driver: bridge
