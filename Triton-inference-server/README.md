@@ -6,11 +6,6 @@ The purpose is to implement TRT inference on server and deploy client in many ed
 - [Documentation](https://docs.nvidia.com/deeplearning/triton-inference-server/master-user-guide/docs/)
 
 ---
-# Architecture
-
-![](./assets/framework1.png)
-
----
 # Start your TRTIS life
 
 Please follow my steps to reproduce the same env and results. 
@@ -22,7 +17,6 @@ BTW if you haven't installed NVIDIA-docker, please take a look this [instruction
 
 ## For launching the server part
 Please check your GPU's CUDA compute capability from [here](https://developer.nvidia.com/cuda-gpus#compute).
-![](./assets/TRTIS_GPU_Version.png)
 
 Mainly if you use RTX 20XX series, your GPU's capability is 7.X.
 If you use GTX 10XX series, your GPU's capability is 6.X.
@@ -115,16 +109,6 @@ pip3 install tensorrtserver
 You only need to import the library, and then you can directly implement those py files easily.
 
 ---
-# Experiments
-
-For our case, we can run our previous models on TRTIS not only TRT engines but also onnx models. 
-
-Here I was using CenterNet to be an example.
-
-Here is the comparison results among many different conditions.
-![trtis_exp](./assets/trtis_exp.png)
-
----
 # Generate a `config.pbtxt` file
 
 >Please check [here](./experiments/README.md)
@@ -135,8 +119,6 @@ Please follow this layout from [official instruction](https://docs.nvidia.com/de
 For example, I have a onnx model.
 
 Let's see the input and output shape by `Netron`
-
-![](./assets/ceneternet_od.png)
 
 Hence, the config.pbtxt should be like below.
 
