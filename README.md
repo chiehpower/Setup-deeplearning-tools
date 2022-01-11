@@ -21,7 +21,7 @@
 - Upgrade GPU driver : [Check here](./Upgrade-GPU-Driver/README.md)
 - Setup Ray (including examples) : [Check here](./Ray/README.md)
 - Integrate Supervisor in to your services : [Check here](./supervisord/README.md)
-
+- Install PaddleOCR in (AGX) ARM devices : [Check here](./PaddleOCR/README.md)
 #### ▍Git Clone
 
 ```bash
@@ -53,6 +53,7 @@ git submodule update --init --recursive
 - Set up CI (Continuous integration) with Deep Learning / Python
 - Upgrade GPU Driver
 - Supervisor
+- Install PaddleOCR in (AGX) ARM devices
 
 ---
 # Install NVIDIA GPU Driver 
