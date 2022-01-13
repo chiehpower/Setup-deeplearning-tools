@@ -1,6 +1,6 @@
 [![](https://img.shields.io/badge/Author-Chieh-blue?style=for-the-badge&logo=appveyor)](https://hackmd.io/@Chieh) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/chiehpower) 
 
-# Install PaddleOCR on AGX
+# Install PaddleOCR on AGX (Python 3.8)
 
 We need to install several Python packages.
 
@@ -15,6 +15,7 @@ We need to install several Python packages.
 - Ubuntu OS 18.04
 - Jetpack v4.6 
 - Python3.8
+- GCC v7.5
 
 
 ### Steps
@@ -46,8 +47,10 @@ python3.8 -m pip install scikit-image==0.19.1
 python3.8 -m pip install shellcheck-py==0.8.0.1
 python3.8 -m pip install -U https://paddleocr.bj.bcebos.com/whl/layoutparser-0.0.0-py3-none-any.whl
 
+python3.8 -m pip install paddleocr==2.3.0.2
 
-python3.8 -m pip install "paddleocr>=2.0.1"
+### I will disable this line 
+# python3.8 -m pip install "paddleocr>=2.0.1"
 ```
 
 Depend, if you already installed.
@@ -102,6 +105,8 @@ cmake .. \
   -DWITH_XBYAK=OFF  \
   -DWITH_NV_JETSON=ON
 ```
+(Can add one more option for AGX `-DCMAKE_CUDA_ARCHITECTURES=72`)
+
 
 Let's start it
 ```bash
@@ -113,7 +118,7 @@ make -j6
 After complete the building process, let's install the whl package by pip.
 ```
 cd /paddle/build/python/dist
-pip3 install -U（whl包的名字）
+pip3 install -U（whl name）
 ```
 
 Done~
