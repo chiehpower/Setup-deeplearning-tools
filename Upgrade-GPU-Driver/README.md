@@ -3,6 +3,38 @@
 My gpu driver was out of date, so I was gonna upgrade it to the latest version.
 I recorded the steps and the issue what I encountered.
 
+## Preparing
+### Check nouveau (Important!)
+Check nouveau whether it is working or not.
+If nouveau is working now, then you need to turn off. Otherwise, after you install the NVIDIA gpu driver, it will encoutner some issues. 
+
+```
+lsmod | grep nouveau
+```
+
+If response is nothing, then it is not working.
+
+If it prints something, then you can follow this instruction [Turn off Nouveau](./turn-off-nouveau.md) to turn off it.
+
+
+### Check kernal version
+
+It will find out GNU gcc compiler version used to compile running kernel.
+
+```
+cat /proc/version
+```
+
+
+Check gcc version:
+```
+gcc --version
+```
+If the version is differnet with compiled version, it has better change gcc version to the compiled gcc version of running kernel.
+
+
+---
+## Start
 ### Unisntall GPU driver
 ```
 sudo apt-get --purge remove "nvidia*"
