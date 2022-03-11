@@ -32,6 +32,8 @@ gcc --version
 ```
 If the version is differnet with compiled version, it has better change gcc version to the compiled gcc version of running kernel.
 
+Check here to change the gcc version [Manually install GCC version
+](./upgrade-gcc-version.md).
 
 ---
 ## Start

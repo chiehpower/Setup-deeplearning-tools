@@ -58,6 +58,7 @@ sudo update-grub
 
 ## Reference
 
+- https://hackmd.io/@Chieh/B1OP54uZq
 - https://www.itread01.com/article/1535599424.html
 - https://blog.csdn.net/wf19930209/article/details/81877822
 - https://askubuntu.com/questions/841876/how-to-disable-nouveau-kernel-driver
