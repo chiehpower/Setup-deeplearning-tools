@@ -54,7 +54,28 @@ sudo update-grub
 
 ![](./assets/5.png)
 
+## Note:
 
+Normally we do not need to turn off it during installing the GPU driver for newer computers.
+
+Here is a very primitive environment that it did not install anything after I installed the Ubuntu 20.04 operating system. My GPU is RTX 2070 super.
+
+I check the status of nouveau (turn on), and running kernel version compilered by gcc version and the gcc version which was installed by build-essential.  
+
+![](./assets/note-test/check-version.png)
+
+I installed the GPU driver version which is v510 by the `apt` command (Not the file downloaded from website i.e., `NVIDIA-XXX.run`).
+
+![](./assets/note-test/install-gpu-driver.png)
+
+In the installation, I encountered the MOK stage, but that was okay.
+Reboot it, and check the gpu status by `nvidia-smi`.
+
+![](./assets/note-test/check.png)
+
+Here is detail configuration for this computer.
+
+![](./assets/note-test/config.png)
 
 ## Reference
 
