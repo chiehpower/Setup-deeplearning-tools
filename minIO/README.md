@@ -30,6 +30,8 @@ Create two folders for storing the data from the container.
     - Password : minioadmin
     - User name : minioadmin
 
+![](./assets/1.png)
+
 ## Usage
 
 Please check the [instruction](./Instruction.ipynb). Before you use it, please launch the server first.
