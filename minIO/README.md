@@ -24,10 +24,15 @@ Create two folders for storing the data from the container.
                 minio/minio:RELEASE.2022-02-01T18-00-14Z \
                 server /data --console-address "0.0.0.0:9001"
     ```
-    
+
+    Or you can use `docker-compose up`
+
     - Password : minioadmin
     - User name : minioadmin
 
+## Usage
+
+Please check the [instruction](./Instruction.ipynb). Before you use it, please launch the server first.
 
 ## Reference
 

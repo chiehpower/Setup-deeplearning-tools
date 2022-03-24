@@ -22,6 +22,8 @@
 - Setup Ray (including examples) : [Check here](./Ray/README.md)
 - Integrate Supervisor in to your services : [Check here](./supervisord/README.md)
 - Install PaddleOCR in (AGX) ARM devices : [Check here](./PaddleOCR/README.md)
+- Set up minIO database : [Check here](./minIO/README.md)
+
 #### ▍Git Clone
 
 ```bash
@@ -54,6 +56,7 @@ git submodule update --init --recursive
 - Upgrade GPU Driver
 - Supervisor
 - Install PaddleOCR in (AGX) ARM devices
+- Set up minIO
 
 ---
 # Install NVIDIA GPU Driver 
