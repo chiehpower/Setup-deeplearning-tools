@@ -1,0 +1,22 @@
+# Maintainer: Chieh
+
+version: "3.8"
+services:
+  minio:
+    image: minio/minio:RELEASE.2022-02-01T18-00-14Z
+    shm_size: 20gb
+    volumes:
+      - ./data:/data:rw
+      - ./config:/root/.minio
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    container_name: minio
+    command: server /data --console-address "0.0.0.0:9001"
+    restart: always
+
+volumes:
+  data: {}
+  config: {}
+
