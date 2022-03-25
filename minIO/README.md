@@ -54,6 +54,8 @@ Please check the [instruction](./Instruction.ipynb). Before you use it, please l
 
 One command:`docker-compose -f docker-compose-triton.yml up`
 
+![](./assets/2.png)
+
 ## Reference
 
 - [安裝MinIO並從notebook儲存model到MinIO](https://ithelp.ithome.com.tw/articles/10275077?sc=hot)
