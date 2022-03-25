@@ -1,0 +1,47 @@
+# Maintainer: Chieh
+
+version: "3.8"
+services:
+  minio:
+    image: minio/minio:RELEASE.2022-03-24T00-43-44Z
+    shm_size: 20gb
+    volumes:
+      - ./data:/data:rw
+      - ./config:/root/.minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: user123456
+    entrypoint: sh
+    container_name: minio
+    command: -c 'mkdir -p /data/models && minio server /data --console-address "0.0.0.0:9001"'
+    restart: unless-stopped
+
+  triton-server:
+    image: nvcr.io/nvidia/tritonserver:21.03-py3
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    environment:
+      AWS_ACCESS_KEY_ID: user
+      AWS_SECRET_ACCESS_KEY: user123456
+    deploy:
+     resources:
+       reservations:
+         devices:
+         - driver: nvidia
+           capabilities: [gpu]
+    command: tritonserver --model-store=s3://minio:9000/models --model-control-mode="poll" --log-info true --strict-model-config=false
+    shm_size: 20gb
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    container_name: triton
+    restart: unless-stopped
+
+volumes:
+  data: {}
+  config: {}
