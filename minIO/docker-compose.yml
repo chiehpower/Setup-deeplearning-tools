@@ -3,12 +3,15 @@
 version: "3.8"
 services:
   minio:
-    image: minio/minio:RELEASE.2022-02-01T18-00-14Z
+    image: minio/minio:RELEASE.2022-03-24T00-43-44Z
     shm_size: 20gb
     volumes:
       - ./data:/data:rw
       - ./config:/root/.minio
       - /etc/localtime:/etc/localtime:ro
+    environment:
+      MINIO_ROOT_USER: user
+      MINIO_ROOT_PASSWORD: user123456
     ports:
       - "9000:9000"
       - "9001:9001"

@@ -26,8 +26,11 @@ Create two folders for storing the data from the container.
 
     Access the link by `0.0.0.0:9000` and then you can see the console.
 
+    - User name : user
+	- Password : user123456
+    
     ![](./assets/console.png) 
-
+    
     ![](./assets/1.png)
 
 ## Basic MinIO usage
