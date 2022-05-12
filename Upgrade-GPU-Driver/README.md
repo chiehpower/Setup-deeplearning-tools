@@ -209,3 +209,18 @@ Solution:
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 sudo systemctl restart docker
 ```
+
+### 2. Update /etc/apt/source.list
+
+For AMD64 use
+```
+sed -i -e 's/archive.ubuntu.com/free.nchc.org.tw/' /etc/apt/sources.list
+```
+
+
+### 3. After we add the ppa `ppa:graphics-drivers/ppa`, still cannot find the tool `ubuntu-drivers devices`
+
+Try to install this:
+```
+sudo apt install ubuntu-drivers-common
+```
