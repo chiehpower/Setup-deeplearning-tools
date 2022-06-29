@@ -323,6 +323,43 @@ Reference:
     - [The usage of the drone-telegram plugin](https://github.com/appleboy/drone-telegram/blob/master/DOCS.md)
     - https://ithelp.ithome.com.tw/articles/10235182
 
+I found if we do not set the trigger setting then it will not trigger the CICD when we do not login the dashboard of Drone CICD.
+
+So, we can do it like below:
+
+```
+kind: pipeline
+type: docker      
+
+name: Test-stage   
+    
+steps:
+  - name: send telegram notification
+    image: appleboy/drone-telegram
+    # if you turn on this this option, you cannot put this section in the last one (step).
+    # detach: true 
+    settings:
+      token: 
+        from_secret: telegram_token
+      to: 
+        from_secret: telegram_to
+      photo:
+       - test.png
+       - t.jpg
+      message: "test"
+    when:                               
+      status: 
+      - failure
+      branch:
+        exclude:
+        - main
+
+trigger:
+  branch:
+    exclude:
+    - main
+```
+
 
 ---
 ## Set a Windows runner
