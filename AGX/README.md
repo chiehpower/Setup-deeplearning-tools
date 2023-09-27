@@ -698,3 +698,12 @@ If you encounter the connection failed issue, please change the source from here
 ```
 sudo sed -i'' 's/ports\.ubuntu\.com\/ubuntu-ports/free\.nchc\.org\.tw\/ubuntu-ports/' /etc/apt/sources.list
 ```
+
+---
+# Docker with GPU
+
+```
+sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo apt-get install -y nvidia-container-runtime
+sudo systemctl restart docker
+```
